@@ -84,12 +84,36 @@ class EM(SS.ScrawlSite):
         self.FindNewsLinks()
         # self.SaveNewsLinks()
         # self.db.conn.commit()
+class XSGJJ(SS.ScrawlSite):
+    def FindNewsLinks(self):
+        try:
+            div = self.soup.find(name='tbody')
+            print div
+            tr = div.find_all(name='tr')
+            print 'tr: ',tr
+            for item in tr:
+                text = item.find_all(name='td')
+                print text
+                # for each_item in text:
+                #     # print text[0]
+                #     print each_item.text.strip()
+        except StandardError, e:
+            print e
+
+    def gg(self):
+        ret = self.GetSiteContent()
+        if ret == 1:
+            return (None, None, None)
+        self.FindNewsLinks()
+
 
 
 def main():
+    jj = XSGJJ(url = "http://data.eastmoney.com/dxf/",tablename = "XXX", n = 2)
+    jj.gg()
     # em = EM(url = "http://soft-f9.eastmoney.com/soft/gp6.php?code=30034302",tablename = "XXX", n = 2)
     # em.gg()
-    ifeng = ifengFinance(url = "http://app.finance.ifeng.com/list/bookinfo_zt.php?t=cyb",dbname='idxdb' ,tablename = "treport",market=3, n = 12)
-    ifeng.gg()
+    # ifeng = ifengFinance(url = "http://app.finance.ifeng.com/list/bookinfo_zt.php?t=cyb",dbname='idxdb' ,tablename = "treport",market=3, n = 12)
+    # ifeng.gg()
 if __name__ == '__main__':
     main()
